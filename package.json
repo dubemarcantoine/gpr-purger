@@ -1,0 +1,37 @@
+{
+  "name": "gpr-deleter",
+  "version": "1.0.0",
+  "description": "Delete images in GPR",
+  "scripts": {
+    "start": "node dist/index/js",
+    "clean": "rimraf coverage dist tmp",
+    "build": "rimraf dist && tsc && tsc -v && pkg .",
+    "lint": "tslint -t stylish --project \"tsconfig.json\"",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "dev": "nodemon --exec ts-node src/index.ts --watch src"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.7",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.4",
+    "pkg": "^4.4.0",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.5.0",
+    "tslint": "^5.20.1",
+    "tsutils": "^3.17.1",
+    "typescript": "^3.7.2"
+  },
+  "bin": "dist/index.js",
+  "pkg": {
+    "scripts": "dist/**/*.js"
+  }
+}
