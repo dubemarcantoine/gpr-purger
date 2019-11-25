@@ -1,5 +1,5 @@
 {
-  "name": "gpr-deleter",
+  "name": "gpr-purger",
   "version": "1.0.0",
   "description": "Delete images in GPR",
   "scripts": {

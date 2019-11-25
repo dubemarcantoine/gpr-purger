@@ -1,34 +1,21 @@
-import * as glob from "glob";
+const axios = require('axios');
 
-const Jimp = require("jimp");
-
-const folder = "/home/madube/projects/tourisme-estrie/location-tourisme-estrie-utils/lte-watermarker/output";
-
-const compress = async (imagePath, imageName) => {
-    console.log(`Processing ${imageName}`);
-    const [image] = await Promise.all([
-        Jimp.read(`${imagePath}/${imageName}`),
-    ]);
-    image.resize(image.bitmap.width / 2, image.bitmap.height / 2)
-        .quality(80)
-        .write(`output/${imageName}`);
-};
-
-const start = async () => {
-    glob("**/*", {
-        cwd: folder
-    }, async (er, filenames) => {
-        await asyncForEach(filenames, async (filename) => {
-            await compress(folder, filename);
-        });
-        console.log('Finished processing!');
+// Make a request for a user with a given ID
+axios.post('https://api.github.com/graphql',
+    {
+        "query": "{ user(login: \"dubemarcantoine\") { registryPackagesForQuery(last: 10, query:\"is:private\") { totalCount nodes { nameWithOwner versions(last: 100) { nodes { id version } } } } }}"
+    },
+    {
+        headers: {
+            Accept: 'application/vnd.github.package-deletes-preview+json',
+            Authorization: 'bearer '
+        }
+    })
+    .then(function (response) {
+        // handle success
+        console.log(response.data.data.user.registryPackagesForQuery.nodes);
+    })
+    .catch(function (error) {
+        // handle error
+        console.log(error.response.data.message);
     });
-};
-
-async function asyncForEach(array, callback) {
-    for (let index = 0; index < array.length; index++) {
-        await callback(array[index], index, array);
-    }
-}
-
-start();
