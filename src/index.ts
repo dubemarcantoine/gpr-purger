@@ -13,6 +13,7 @@ yargs
     .help()
     .argv;
 
+console.log("Starting!");
 // Make a request for a user with a given ID
 axios.post('https://api.github.com/graphql',
     {
@@ -26,6 +27,7 @@ axios.post('https://api.github.com/graphql',
     })
     .then((response) => {
         response.data.data.user.registryPackagesForQuery.nodes.forEach(node => {
+            console.log(`${node.nameWithOwner} has ${node.versions.nodes.length} versions`);
             node.versions.nodes.forEach((version, index) => {
                 // Do not delete the latest version
                 if (index !== 0) {
