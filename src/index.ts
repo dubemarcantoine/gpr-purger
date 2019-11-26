@@ -14,7 +14,6 @@ yargs
     .argv;
 
 console.log("Starting!");
-// Make a request for a user with a given ID
 axios.post('https://api.github.com/graphql',
     {
         query: `{ user(login: "${yargs.argv.username}") { registryPackagesForQuery(last: 10, query:"is:private") { totalCount nodes { nameWithOwner versions(last: 100) { nodes { id version } } } } }}`
@@ -45,7 +44,6 @@ axios.post('https://api.github.com/graphql',
                             console.log(`Deleted version ${version.id}`);
                         })
                         .catch((error) => {
-                            // handle error
                             console.log(error.response.data.message);
                         });
                 }
@@ -53,6 +51,5 @@ axios.post('https://api.github.com/graphql',
         });
     })
     .catch((error) => {
-        // handle error
         console.log(error.response.data.message);
     });
